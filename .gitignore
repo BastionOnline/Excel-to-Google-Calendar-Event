@@ -1,0 +1,7 @@
+/drafts
+/dist
+/build
+/debug menu
+
+*.xlsx
+*.exe
