@@ -2,6 +2,8 @@
 /dist
 /build
 /debug menu
+/myvenv
 
 *.xlsx
 *.exe
+*.code-workspace
