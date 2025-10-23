@@ -2,7 +2,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const uploadExcelFileBtn = document.getElementById("uploadExcelFileBtn");
     const sheetNameSelector = document.getElementById("sheetNameSelector");
     const headerInputSelector = document.getElementById("headerInputSelector");
-    
+    const eventNameSelector = document.getElementById("eventNameSelector");
+    const eventStartDateSelector = document.getElementById("eventStartDateSelector");
+    const eventStartTimeSelector = document.getElementById("eventStartTimeSelector");
+    const eventEndDateSelector = document.getElementById("eventEndDateSelector");
+    const eventEndTimeSelector = document.getElementById("eventEndTimeSelector");
+    const eventDescriptionSelector = document.getElementById("eventDescriptionSelector");
+
 
     sheetNameSelector.addEventListener("change", async () => {
         try {
@@ -22,6 +28,33 @@ document.addEventListener("DOMContentLoaded", async () => {
             const headerJson = await window.pywebview.api.selectHeaderInput(headerInputValue)
             // alert(headerJson)
 
+            // se
+
+            headerJson.forEach(header => {
+                // alert(`header is ${header}`)
+                const selectors = [
+                    eventNameSelector,
+                    eventStartDateSelector,
+                    eventStartTimeSelector,
+                    eventEndDateSelector,
+                    eventEndTimeSelector,
+                    eventDescriptionSelector
+                ];
+
+                selectors.forEach( selector => {
+                    // alert(`selector is ${selector}`)
+                    const option = document.createElement("option");
+                    option.value = header;
+                    option.innerHTML = header;
+                    selector.appendChild(option);    
+                });
+                
+                // eventStartDateSelector.appendChild(option);
+                // eventStartTimeSelector.appendChild(option);
+                // eventEndDateSelector.appendChild(option);
+                // eventEndTimeSelector.appendChild(option);
+                // eventDescriptionSelector.appendChild(option);
+            })
         } catch {
 
         }
