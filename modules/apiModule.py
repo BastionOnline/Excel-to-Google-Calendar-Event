@@ -1,6 +1,9 @@
-from modules.userDefaultsModule import createConfigFolder, setDefault, createJson, updateJsonExcel, loadJson, defaultCheck
 import os
+import pandas as pd
+import json
+
 from tkinter import filedialog
+from modules.userDefaultsModule import createConfigFolder, setDefault, createJson, updateJsonExcel, loadJson, defaultCheck
 
 templateFolderDir, jsonFileName, jsonFilePath, templateFolderStat = createConfigFolder("profiles", "profiles")
 createJson(templateFolderStat, templateFolderDir, jsonFilePath)
@@ -66,9 +69,21 @@ class Api:
         ))
         print(self.excelFilePath)
 
-        # setDefault("Balance", self.balanceFilePath, jsonFile)
+        # return Excel pages found
+        excelFile = pd.ExcelFile(self.excelFilePath)
+        sheetNames = excelFile.sheet_names
+        print(sheetNames)
+        jsonSheetNames = json.dumps(sheetNames)
+        print(jsonSheetNames)
 
-        return self.excelFilePath
+        pathAndSheets = [self.excelFilePath, jsonSheetNames]
+        print(pathAndSheets)
+
+        # return with json to use as array in JS, NOT string
+        return {
+            "path": self.excelFilePath,
+            "sheets": jsonSheetNames
+        }
     
     # get df
     # set self values
