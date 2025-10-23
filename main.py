@@ -17,6 +17,9 @@ from modules.exportFileModule import exportFile
 from modules.blankFillerModule import blankFiller
 from modules.missingIndexModule import missingIndex
 from modules.chartPrepModule import chartPrep
+from modules.userDefaultsModule import createConfigFolder, setDefault, createJson, updateJsonExcel, loadJson, defaultCheck
+from modules.apiModule import Api
+
 ################################################################################################
 #read ONLY certain columns from file
 #clean empty rows
@@ -36,27 +39,8 @@ from modules.chartPrepModule import chartPrep
 # IF COMMAS ARE IN ENTRIES, PUT IT IN QUOTES
 # ADD NOTIFICATIONS FOR EVENTS, SET CALENDAR BEFORE CSV UPLOAD
 
-
-class Api:
-    # def __init__(self, window, jsonPath=jsonFile):
-    # def __init__(self, window, jsonPath):
-    def __init__(self, window):
-        self.jsonPath = None
-        self.balanceFilePath = None
-        self.window = window
-
-
-    def selectExcelFile(self):
-        # use os.path.normpath to standardize path formats
-        self.excelFilePath = os.path.normpath(filedialog.askopenfilename(
-            title="Select a Balance file",
-            filetypes=[("Excel Files", "*.xls *.xlsx")]
-        ))
-        print(self.excelFilePath)
-
-        # setDefault("Balance", self.balanceFilePath, jsonFile)
-
-        return self.excelFilePath
+templateFolderDir, jsonFileName, jsonFilePath, templateFolderStat = createConfigFolder("profiles", "profiles")
+createJson(templateFolderStat, templateFolderDir, jsonFilePath)
 
 ################################################################################################
 
@@ -82,6 +66,9 @@ if __name__ == '__main__':
     # Open the HTML file in a webview window
     window = webview.create_window("Google Calendar Event Maker", f"file://{html_file}", js_api=api)
     
+    # Assign the actual window object to the API instance
+    # api.window = window
+
     # Set the api self.window so python can push to it
     webview.start()
     # webview.start(debug=True)
