@@ -39,8 +39,8 @@ from modules.apiModule import Api
 # IF COMMAS ARE IN ENTRIES, PUT IT IN QUOTES
 # ADD NOTIFICATIONS FOR EVENTS, SET CALENDAR BEFORE CSV UPLOAD
 
-templateFolderDir, jsonFileName, jsonFilePath, templateFolderStat = createConfigFolder("profiles", "profiles")
-createJson(templateFolderStat, templateFolderDir, jsonFilePath)
+# templateFolderDir, jsonFileName, jsonFilePath, templateFolderStat = createConfigFolder("profiles", "profiles")
+# createJson(templateFolderStat, templateFolderDir, jsonFilePath)
 
 ################################################################################################
 
@@ -63,12 +63,11 @@ if __name__ == '__main__':
     # main()
     api = Api(None)
 
+    # api.jsonFilePath = jsonFilePath
+
     # Open the HTML file in a webview window
     window = webview.create_window("Google Calendar Event Maker", f"file://{html_file}", js_api=api)
     
-    # Assign the actual window object to the API instance
-    # api.window = window
-
     # Set the api self.window so python can push to it
     webview.start()
     # webview.start(debug=True)

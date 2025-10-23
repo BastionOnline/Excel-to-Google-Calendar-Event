@@ -2,12 +2,15 @@ from modules.userDefaultsModule import createConfigFolder, setDefault, createJso
 import os
 from tkinter import filedialog
 
+templateFolderDir, jsonFileName, jsonFilePath, templateFolderStat = createConfigFolder("profiles", "profiles")
+createJson(templateFolderStat, templateFolderDir, jsonFilePath)
+
 
 class Api:
     # def __init__(self, window, jsonPath=jsonFile):
-    # def __init__(self, window, jsonPath):
-    def __init__(self, window):
-        self.jsonPath = None
+    def __init__(self, window, jsonFilePath=jsonFilePath):
+    # def __init__(self, window):
+        self.jsonFilePath = jsonFilePath
         self.balanceFilePath = None
         self.window = window
 
@@ -66,3 +69,10 @@ class Api:
         # setDefault("Balance", self.balanceFilePath, jsonFile)
 
         return self.excelFilePath
+    
+    # get df
+    # set self values
+    # Return sheets
+    # get row number of headers
+    # return headers
+    # select headers for 
