@@ -11,9 +11,9 @@ import threading
 import traceback
 
 from tkinter import filedialog
-from modules.fileSelect import cliMenu
-from modules.formatting import columnFormat
-from modules.export import exportFile
+from modules.cliMenuModule import cliMenu
+from modules.columnFormatModule import columnFormat
+from modules.exportFileModule import exportFile
 from modules.blankFillerModule import blankFiller
 from modules.missingIndexModule import missingIndex
 from modules.chartPrepModule import chartPrep
@@ -39,8 +39,9 @@ from modules.chartPrepModule import chartPrep
 
 class Api:
     # def __init__(self, window, jsonPath=jsonFile):
-    def __init__(self, window, jsonPath):
-        self.jsonPath = jsonPath
+    # def __init__(self, window, jsonPath):
+    def __init__(self, window):
+        self.jsonPath = None
         self.balanceFilePath = None
         self.window = window
 
