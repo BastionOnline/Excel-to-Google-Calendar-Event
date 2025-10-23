@@ -106,6 +106,26 @@ class Api:
         # return self.headerInput
         return headers
     
+    def selectEventNameInput(self, eventNameSelector):
+        self.eventNameInput = eventNameSelector
+        return self.eventNameInput
+    
+    def selectEventStartDateInput(self, eventStartDateSelector):
+        self.eventStartDateInput = eventStartDateSelector
+        return self.eventStartDateInput
+    
+    def selectEventStartTimeInput(self, eventStartTimeSelector):
+        self.eventStartTimeInput = eventStartTimeSelector
+        return self.eventStartTimeInput
+    
+    def selectEventEndDateInput(self, eventEndDateSelector):
+        self.eventEndDateInput = eventEndDateSelector
+        return self.eventEndDateInput
+    
+    def selectEventDescription(self, eventDesriptionSelector):
+        self.eventDescriptionInput = eventDesriptionSelector
+        return self.eventDescriptionInput
+
 
 
     # get df

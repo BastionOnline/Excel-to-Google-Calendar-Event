@@ -48,18 +48,59 @@ document.addEventListener("DOMContentLoaded", async () => {
                     option.innerHTML = header;
                     selector.appendChild(option);    
                 });
-                
-                // eventStartDateSelector.appendChild(option);
-                // eventStartTimeSelector.appendChild(option);
-                // eventEndDateSelector.appendChild(option);
-                // eventEndTimeSelector.appendChild(option);
-                // eventDescriptionSelector.appendChild(option);
             })
         } catch {
 
         }
     })
 
+    eventNameSelector.addEventListener("change", async () => {
+        try {
+            
+        } catch {
+
+        }
+    })
+
+    eventStartDateSelector.addEventListener("change", async () => {
+        try {
+
+        } catch {
+
+        }
+    })
+
+    eventStartTimeSelector.addEventListener("change", async () => {
+        try {
+
+        } catch {
+
+        }
+    })
+
+    eventEndDateSelector.addEventListener("change", async () => {
+        try {
+
+        } catch {
+
+        }
+    })
+
+    eventEndTimeSelector.addEventListener("change", async () => {
+        try {
+            
+        } catch {
+
+        }
+    })
+
+    eventDescriptionSelector.addEventListener("change", async () => {
+        try {
+
+        } catch {
+            
+        }
+    })
 
     uploadExcelFileBtn.addEventListener("click", async () => {
         try {
