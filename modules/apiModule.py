@@ -16,6 +16,8 @@ class Api:
         self.jsonFilePath = jsonFilePath
         self.balanceFilePath = None
         self.window = window
+        self.sheetName = None
+        self.headerInput = None
 
     def loadUserDefaults(self, jsonValue):
         try:
@@ -85,6 +87,27 @@ class Api:
             "sheets": jsonSheetNames
         }
     
+    def selectSheetName(self, sheetName):
+        self.sheetName = sheetName
+        print(self.sheetName)
+        return self.sheetName
+
+
+    def selectHeaderInput(self, headerInput):
+        self.headerInput = int(headerInput)
+
+        print(self.headerInput)
+    
+        df = pd.read_excel(self.excelFilePath, sheet_name=self.sheetName, header=self.headerInput - 1)
+        headers = df.columns.tolist()
+
+        # setDefault("Year", self.yearValue, jsonFile)
+
+        # return self.headerInput
+        return headers
+    
+
+
     # get df
     # set self values
     # Return sheets

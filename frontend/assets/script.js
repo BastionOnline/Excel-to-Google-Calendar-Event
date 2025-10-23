@@ -1,6 +1,31 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const uploadExcelFileBtn = document.getElementById("uploadExcelFileBtn");
     const sheetNameSelector = document.getElementById("sheetNameSelector");
+    const headerInputSelector = document.getElementById("headerInputSelector");
+    
+
+    sheetNameSelector.addEventListener("change", async () => {
+        try {
+            // alert(sheetNameSelector.value)
+            const sheetNameSelected = await window.pywebview.api.selectSheetName(sheetNameSelector.value)
+            alert(sheetNameSelected)
+        } catch {
+
+        }
+    })
+
+    headerInputSelector.addEventListener("change", async () => {
+        // alert("change detected!")
+        try{
+            headerInputValue = headerInputSelector.value
+            alert(headerInputValue)
+            const headerJson = await window.pywebview.api.selectHeaderInput(headerInputValue)
+            // alert(headerJson)
+
+        } catch {
+
+        }
+    })
 
 
     uploadExcelFileBtn.addEventListener("click", async () => {
@@ -15,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             // alert(excelSheets[0])
 
             excelSheets.forEach(sheet => {
-                alert(sheet)
+                // alert(sheet)
                 const option = document.createElement("option")
                 option.value = sheet
                 option.textContent = sheet
