@@ -3,6 +3,26 @@ from datetime import datetime
 import sqlite3 as sq
 import pandas as pd
 
+def exportTypes(df, TrialdbConn, TrialdbCursor, csvfiledir, TrialListFile, excelexport, DataMissingdf, FileSelect):
+    df.to_sql('Trials', TrialdbConn, index=False, if_exists='append')
+
+    TrialdbCursor.close()
+    TrialdbConn.close()
+
+    df.to_csv(csvfiledir,index=False, sep=",")
+    try:
+
+        with pd.ExcelWriter(TrialListFile, engine='openpyxl') as writer:
+
+            excelexport.to_excel(writer, sheet_name="List of Trials", index=True)
+
+            DataMissingdf.to_excel(writer,sheet_name="Not Uploaded", index=True)
+
+    except PermissionError:
+        with open("Please close the excel document POA Clients.txt", 'w') as file:
+            file.write(f"Please close {FileSelect} to allow for updating.")
+
+
 def exportFile(DirMain, df, excelexport, DataMissingdf, FileSelect):
 
     
@@ -21,23 +41,14 @@ def exportFile(DirMain, df, excelexport, DataMissingdf, FileSelect):
 
 
     # SQL to CSV or just go to csv
-        
     csvfiledir = os.path.join(POADir, "Upload to Google - Trials as of " + str(datetime.today().date().strftime('%b %#d, %Y')) + ".csv")
 
 
     Trialdbname = 'Trials Uploaded.db'
-
     dbfile = os.path.join(DirMain, Trialdbname)
-
     comptable = df.copy(deep=True)
 
 
-
-
-
-
-    # x = 0
-    # if x==0:
     try:
 
         # if os.path.exists(dbfile):
@@ -214,39 +225,41 @@ def exportFile(DirMain, df, excelexport, DataMissingdf, FileSelect):
                     TrialdbConn.close()
 
         else:
-            df.to_sql('Trials', TrialdbConn, index=False, if_exists='append')
+            exportTypes(df, TrialdbConn, TrialdbCursor, csvfiledir, TrialListFile, excelexport, DataMissingdf, FileSelect)
+            # df.to_sql('Trials', TrialdbConn, index=False, if_exists='append')
 
-            TrialdbCursor.close()
-            TrialdbConn.close()
+            # TrialdbCursor.close()
+            # TrialdbConn.close()
 
-            df.to_csv(csvfiledir,index=False, sep=",")
+            # df.to_csv(csvfiledir,index=False, sep=",")
 
 
-            with pd.ExcelWriter(TrialListFile, engine='openpyxl') as writer:
+            # with pd.ExcelWriter(TrialListFile, engine='openpyxl') as writer:
 
-                excelexport.to_excel(writer, sheet_name="List of Trials", index=True)
+            #     excelexport.to_excel(writer, sheet_name="List of Trials", index=True)
 
-                DataMissingdf.to_excel(writer,sheet_name="Not Uploaded", index=True)
+            #     DataMissingdf.to_excel(writer,sheet_name="Not Uploaded", index=True)
 
 
     except Exception as e:
-        df.to_sql('Trials', TrialdbConn, index=False, if_exists='append')
+        exportTypes(df, TrialdbConn, TrialdbCursor, csvfiledir, TrialListFile, excelexport, DataMissingdf, FileSelect)
+        # df.to_sql('Trials', TrialdbConn, index=False, if_exists='append')
 
-        TrialdbCursor.close()
-        TrialdbConn.close()
+        # TrialdbCursor.close()
+        # TrialdbConn.close()
 
-        df.to_csv(csvfiledir,index=False, sep=",")
-        try:
+        # df.to_csv(csvfiledir,index=False, sep=",")
+        # try:
 
-            with pd.ExcelWriter(TrialListFile, engine='openpyxl') as writer:
+        #     with pd.ExcelWriter(TrialListFile, engine='openpyxl') as writer:
 
-                excelexport.to_excel(writer, sheet_name="List of Trials", index=True)
+        #         excelexport.to_excel(writer, sheet_name="List of Trials", index=True)
 
-                DataMissingdf.to_excel(writer,sheet_name="Not Uploaded", index=True)
+        #         DataMissingdf.to_excel(writer,sheet_name="Not Uploaded", index=True)
 
-        except PermissionError:
-            with open("Please close the excel document POA Clients.txt", 'w') as file:
-                file.write(f"Please close {FileSelect} to allow for updating.")
+        # except PermissionError:
+        #     with open("Please close the excel document POA Clients.txt", 'w') as file:
+        #         file.write(f"Please close {FileSelect} to allow for updating.")
 
 
 
