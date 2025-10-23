@@ -3,7 +3,22 @@ from datetime import datetime
 import sqlite3 as sq
 import pandas as pd
 
-def exportFile(POADir, DirMain, df, TrialListFile, excelexport, DataMissingdf, FileSelect):
+def exportFile(DirMain, df, excelexport, DataMissingdf, FileSelect):
+
+    
+    POADir, File = os.path.split(FileSelect)
+
+    # POAMissing = os.path.join(POADir, "POAs that were can't be processed.xlsx")
+    dateofcreation = "created " + str(datetime.today().today().strftime('%b %#d, %Y')).replace(':',',').replace('.',',') + ".xlsx"
+    if len(DataMissingdf) == 0:
+        TrialListFile = os.path.join(POADir, f"List of Trials - {dateofcreation}")
+    elif len(DataMissingdf) == 1:
+        TrialListFile = os.path.join(POADir, f"List of Trials, {len(DataMissingdf)} error - {dateofcreation}")
+    else:
+        TrialListFile = os.path.join(POADir, f"List of Trials, {len(DataMissingdf)} errors - {dateofcreation}")
+
+########################################################################################################
+
 
     # SQL to CSV or just go to csv
         
