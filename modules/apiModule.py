@@ -142,7 +142,8 @@ class Api:
         
         
         # df = pd.read_excel(FileSelect, sheet_name="POA Clients", usecols=importcol)
-        importcol = [self.eventNameInput, self.eventStartDateInput, self.eventStartTimeInput, self.eventEndDateInput, self.eventEndTimeInput, self.eventDescriptionInput]
+        # importcol = [self.eventNameInput, self.eventStartDateInput, self.eventStartTimeInput, self.eventEndDateInput, self.eventEndTimeInput, self.eventDescriptionInput]
+        importcol = ["Subject", "Offence Number", "Start Date", "Start Time", "Description"]
         print(importcol)
 
         fileSelect = self.excelFilePath

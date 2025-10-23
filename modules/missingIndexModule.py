@@ -3,7 +3,7 @@ import pandas as pd
 def missingIndex(df):
     DataMissingidx = []
     # # DataMissingrow = []
-    # # DataMissingdf = pd.DataFrame(columns=df.columns)
+    DataMissingdf = pd.DataFrame(columns=df.columns)
 
     # # DataMissingdf = pd.DataFrame()
 

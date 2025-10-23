@@ -1,31 +1,30 @@
-import os
-import pandas as pd
-from datetime import datetime
-import sqlite3 as sq
-from datetime import datetime
-import json
+# import os
+# import pandas as pd
+# from datetime import datetime
+# import sqlite3 as sq
+# from datetime import datetime
+# import json
 import webview
-import os
-import sys
-import threading
-import traceback
+# import os
+# import sys
+# import threading
+# import traceback
 
-from tkinter import filedialog
-from modules.cliMenuModule import cliMenu
-from modules.columnFormatModule import columnFormat
-from modules.exportFileModule import exportFile
-from modules.blankFillerModule import blankFiller
-from modules.missingIndexModule import missingIndex
-from modules.chartPrepModule import chartPrep
-from modules.userDefaultsModule import createConfigFolder, setDefault, createJson, updateJsonExcel, loadJson, defaultCheck
+# from tkinter import filedialog
+# from modules.cliMenuModule import cliMenu
+# from modules.columnFormatModule import columnFormat
+# from modules.exportFileModule import exportFile
+# from modules.blankFillerModule import blankFiller
+# from modules.missingIndexModule import missingIndex
+# from modules.chartPrepModule import chartPrep
+# from modules.userDefaultsModule import createConfigFolder, setDefault, createJson, updateJsonExcel, loadJson, defaultCheck
 from modules.apiModule import Api
+from modules.pyinstallerBoilerplate import resource_path
 
 ################################################################################################
 #read ONLY certain columns from file
 #clean empty rows
 #export to csv
-#how to make hidden file
-#add if statment if wrong file is chosen
 
 
 #how to add colour
@@ -39,19 +38,16 @@ from modules.apiModule import Api
 # IF COMMAS ARE IN ENTRIES, PUT IT IN QUOTES
 # ADD NOTIFICATIONS FOR EVENTS, SET CALENDAR BEFORE CSV UPLOAD
 
-# templateFolderDir, jsonFileName, jsonFilePath, templateFolderStat = createConfigFolder("profiles", "profiles")
-# createJson(templateFolderStat, templateFolderDir, jsonFilePath)
-
 ################################################################################################
 
-def resource_path(relative_path):
-    """ Get the absolute path to a resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temporary folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-    return os.path.join(base_path, relative_path)
+# def resource_path(relative_path):
+#     """ Get the absolute path to a resource, works for dev and for PyInstaller """
+#     try:
+#         # PyInstaller creates a temporary folder and stores path in _MEIPASS
+#         base_path = sys._MEIPASS
+#     except Exception:
+#         base_path = os.path.abspath(".")
+#     return os.path.join(base_path, relative_path)
 
 # enable for debugging
 html_file = resource_path(r'.\frontend\index.html')
