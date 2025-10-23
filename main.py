@@ -74,16 +74,16 @@ if __name__ == '__main__':
 ################################################################################################
 
 
-df, FileSelect, DirMain = cliMenu()
+# df, FileSelect, DirMain = cliMenu()
 
-df = columnFormat(df)
+# df = columnFormat(df)
 
-df, DataMissingidx, DataMissingdf = missingIndex(df)
+# df, DataMissingidx, DataMissingdf = missingIndex(df)
 
-df, excelexport = chartPrep(df)
+# df, excelexport = chartPrep(df)
 
-#####################################################################################
+# #####################################################################################
 
-df = blankFiller(df)
+# df = blankFiller(df)
 
-exportFile(DirMain, df, excelexport, DataMissingdf, FileSelect)
+# exportFile(DirMain, df, excelexport, DataMissingdf, FileSelect)

@@ -8,7 +8,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     const eventEndDateSelector = document.getElementById("eventEndDateSelector");
     const eventEndTimeSelector = document.getElementById("eventEndTimeSelector");
     const eventDescriptionSelector = document.getElementById("eventDescriptionSelector");
+    const startBtn = document.getElementById("start");
 
+    uploadExcelFileBtn.addEventListener("click", async () => {
+        try {
+            // alert("click")
+            const excelData = await window.pywebview.api.selectExcelFile()
+            const excelSheets = JSON.parse(excelData.sheets)
+            const excelFilePath = excelData.path
+            // alert(excelData)
+            // alert(excelFilePath)
+            // alert(excelSheets)
+            // alert(excelSheets[0])
+
+            excelSheets.forEach(sheet => {
+                // alert(sheet)
+                const option = document.createElement("option")
+                option.value = sheet
+                option.textContent = sheet
+                sheetNameSelector.appendChild(option)
+            });
+        }
+        catch {
+        }
+       
+    }
+    )
+
+    startBtn.addEventListener("click", async () => {
+        try {
+            alert("start clicked")
+            const start = await window.pywebview.api.startCalendar()
+            alert(start)
+        } catch {
+
+        }
+    })
 
     sheetNameSelector.addEventListener("change", async () => {
         try {
@@ -19,6 +54,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         }
     })
+
 
     headerInputSelector.addEventListener("change", async () => {
         // alert("change detected!")
@@ -56,7 +92,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     eventNameSelector.addEventListener("change", async () => {
         try {
-            
+            const eventName = await window.pywebview.api.selectEventNameInput(eventNameSelector.value)
+            alert(eventName)
         } catch {
 
         }
@@ -64,7 +101,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     eventStartDateSelector.addEventListener("change", async () => {
         try {
-
+            const eventStartDate = await window.pywebview.api.selectEventStartDateInput(eventStartDateSelector.value)
+            alert(eventStartDate)
         } catch {
 
         }
@@ -72,7 +110,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     eventStartTimeSelector.addEventListener("change", async () => {
         try {
-
+            const eventStartTime = await window.pywebview.api.selectEventStartTimeInput(eventStartTimeSelector.value)
+            alert(eventStartTime)
         } catch {
 
         }
@@ -80,7 +119,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     eventEndDateSelector.addEventListener("change", async () => {
         try {
-
+            const eventEndDate = await window.pywebview.api.selectEventEndDateInput(eventEndDateSelector.value)
+            alert(eventEndDate)
         } catch {
 
         }
@@ -88,7 +128,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     eventEndTimeSelector.addEventListener("change", async () => {
         try {
-            
+            const eventEndTime = await window.pywebview.api.selectEventEndTimeInput(eventEndTimeSelector.value)
+            alert(eventEndTime)
         } catch {
 
         }
@@ -96,36 +137,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     eventDescriptionSelector.addEventListener("change", async () => {
         try {
-
+            const eventDescription = await window.pywebview.api.selectEventDescription(eventDescriptionSelector.value)
+            alert(eventDescription)
         } catch {
             
         }
     })
 
-    uploadExcelFileBtn.addEventListener("click", async () => {
-        try {
-            // alert("click")
-            const excelData = await window.pywebview.api.selectExcelFile()
-            const excelSheets = JSON.parse(excelData.sheets)
-            const excelFilePath = excelData.path
-            // alert(excelData)
-            // alert(excelFilePath)
-            // alert(excelSheets)
-            // alert(excelSheets[0])
-
-            excelSheets.forEach(sheet => {
-                // alert(sheet)
-                const option = document.createElement("option")
-                option.value = sheet
-                option.textContent = sheet
-                sheetNameSelector.appendChild(option)
-            });
-
-        }
-        catch {
-
-        }
-        
-    }
-    )
 })

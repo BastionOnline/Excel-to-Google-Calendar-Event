@@ -4,6 +4,13 @@ import json
 
 from tkinter import filedialog
 from modules.userDefaultsModule import createConfigFolder, setDefault, createJson, updateJsonExcel, loadJson, defaultCheck
+from modules.cliMenuModule import cliMenu
+from modules.columnFormatModule import columnFormat
+from modules.exportFileModule import exportFile
+from modules.blankFillerModule import blankFiller
+from modules.missingIndexModule import missingIndex
+from modules.chartPrepModule import chartPrep
+
 
 templateFolderDir, jsonFileName, jsonFilePath, templateFolderStat = createConfigFolder("profiles", "profiles")
 createJson(templateFolderStat, templateFolderDir, jsonFilePath)
@@ -121,10 +128,41 @@ class Api:
     def selectEventEndDateInput(self, eventEndDateSelector):
         self.eventEndDateInput = eventEndDateSelector
         return self.eventEndDateInput
+
+    def selectEventEndTimeInput(self, eventEndTimeSelector):
+        self.eventEndTimeInput = eventEndTimeSelector
+        return self.eventEndTimeInput
     
     def selectEventDescription(self, eventDesriptionSelector):
         self.eventDescriptionInput = eventDesriptionSelector
         return self.eventDescriptionInput
+    
+    def startCalendar(self):
+        # df, FileSelect, DirMain = cliMenu()
+        
+        
+        # df = pd.read_excel(FileSelect, sheet_name="POA Clients", usecols=importcol)
+        importcol = [self.eventNameInput, self.eventStartDateInput, self.eventStartTimeInput, self.eventEndDateInput, self.eventEndTimeInput, self.eventDescriptionInput]
+        print(importcol)
+
+        fileSelect = self.excelFilePath
+        DirMain = os.getcwd()
+        print(fileSelect)
+        print(DirMain)
+
+        df = pd.read_excel(self.excelFilePath, sheet_name=self.sheetName, usecols=importcol)
+
+
+        df = columnFormat(df)
+
+        df, DataMissingidx, DataMissingdf = missingIndex(df)
+
+        df, excelexport = chartPrep(df)
+
+        df = blankFiller(df)
+
+        exportFile(DirMain, df, excelexport, DataMissingdf, fileSelect)
+
 
 
 

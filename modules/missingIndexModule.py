@@ -35,8 +35,8 @@ def missingIndex(df):
             print(DataMissingdf)
             df.drop(idx)
 
-    # print("data missing")
-    # print(DataMissingdf)
+    print("data missing")
+    print(DataMissingdf)
 
     # for missing in DataMissingdf:
     #     print(missing)
