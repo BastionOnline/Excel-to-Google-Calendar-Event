@@ -142,29 +142,37 @@ class Api:
         # Subject, start datetime *add note, events will be created as ALL day if time is not given
 
         # df = pd.read_excel(FileSelect, sheet_name="POA Clients", usecols=importcol)
-        importcol = [self.eventNameInput, self.eventStartDateInput, self.eventStartTimeInput, self.eventEndDateInput, self.eventEndTimeInput, self.eventDescriptionInput]
+        fields = [
+            getattr(self, "eventNameInput", ""), 
+            getattr(self, "eventStartDateInput", ""),
+            getattr(self, "eventStartTimeInput", ""),
+            getattr(self, "eventEndDateInput", ""),
+            getattr(self, "eventEndTimeInput", ""),
+            getattr(self, "eventDescriptionInput","")
+            ]
+        
+        importcol = [val for val in fields if val != ""]
+
         # importcol = ["Subject", "Offence Number", "Start Date", "Start Time", "Description"]
         print(importcol)
 
         fileSelect = self.excelFilePath
-        DirMain = os.getcwd()
         print(fileSelect)
-        print(DirMain)
+        
 
         df = pd.read_excel(self.excelFilePath, sheet_name=self.sheetName, usecols=importcol)
 
-        df = columnFormat(df)
-
-        df, DataMissingidx, DataMissingdf = missingIndex(df)
-
-        df, excelexport = chartPrep(df)
-
-        df = blankFiller(df)
         if (importcol == ["Subject", "Offence Number", "Start Date", "Start Time", "Description"]):
+            DirMain = os.getcwd()
+            df = blankFiller(df)
+            df = columnFormat(df)
+            df, DataMissingidx, DataMissingdf = missingIndex(df)
+            df, excelexport = chartPrep(df)
             exportFile(DirMain, df, excelexport, DataMissingdf, fileSelect)
         else:
             # RETURN values for user to select
             # export selection
-            exportStandardFile(DirMain, df, excelexport, DataMissingdf, fileSelect)
+            # exportStandardFile(DirMain, df, excelexport, DataMissingdf, fileSelect)
+            exportStandardFile(df, fileSelect)
             # check what values are given
             return

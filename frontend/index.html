@@ -11,38 +11,40 @@
     <button id="start">create google calendar</button>
 
     <button>settings</button>
+    <select name="profileSelector" id="profileSelector">Profile</select>
+    <button id="saveProfileBtn">Save Current Profile</button>
 
     <h3>Select the sheet</h3>
     <select name="sheetNameSelector" id="sheetNameSelector">
-        <option value="">Subject</option>
+        <option value="">Sheet</option>
     </select>
 
     <h3>Please Enter the Header Row Number</h3>
-    <input type="number" id="headerInputSelector">
+    <input type="number" id="headerInputSelector" min="1">
 
     <h3>Please select the columns for each field</h3>
     <select name="eventNameSelector" id="eventNameSelector">
-        <option value="">Subject</option>
+        <option value="">Sub</option>
     </select>
     
     <select name="eventStartDateSelector" id="eventStartDateSelector">
-        <option value="">Start Date</option>
+        <option value="">SD</option>
     </select>
 
     <select name="eventStartTimeSelector" id="eventStartTimeSelector">
-        <option value="">Start Time</option>
+        <option value="">ST</option>
     </select>
 
     <select name="eventEndDateSelector" id="eventEndDateSelector">
-        <option value="">EventEndDate</option>
+        <option value="">ED</option>
     </select>
 
     <select name="eventEndTimeSelector" id="eventEndTimeSelector">
-        <option value="">EventEndtime</option>
+        <option value="">ET</option>
     </select>
     
     <select name="eventDescriptionSelector" id="eventDescriptionSelector">
-        <option value="">Description</option>
+        <option value="">D</option>
     </select>
     
 <script src="assets/script.js"></script>
