@@ -1,34 +1,7 @@
 import pandas as pd
 
 def columnFormat(df):
-    
-
-
-
-    # FileSelect = FileList[UserSelection-1]
-
-    # print(FileSelect)
-
-    # filedir = os.path.join(DirMain, FileSelect)
-
-
-
-    # df = pd.read_excel(FileSelect, sheet_name="POA Clients", usecols=importcol)
-
-
-    # df = df.dropna(subset=["Start Time"]) DID NOT CLEAR BLANKS
-    # df.replace(" ", "Empty", inplace=True)
-    # df = df.dropna(subset=["Subject"])
-
-
-    # df = df.dropna(subset=["Start Time"])
     df = df.dropna(subset=["Subject"])
-
-
-
-    # df = df.loc[df.ne("Empty").any(axis=1)]
-    # df = df.loc[~(df["Start Time"] == 'Empty')]
-
     # locate ' ' in start time and put true in 'Start Time'
     # Can't use df to df.loc
     # df = df.loc[df["Start Time"] == 'Empty', 'All Day Event'] = "True"
@@ -42,7 +15,6 @@ def columnFormat(df):
     # df.loc[df["All Day Event"] == '0.0', 'All Day Event'] = 'FALSE'
 
     df['Start Date'] = pd.to_datetime(df["Start Date"], errors='coerce')
-
     df["Start Date"] = df["Start Date"].dt.strftime('%Y-%m-%d')
 
 

@@ -28,7 +28,6 @@ js_file = resource_path(r'.\frontend\assets\script.js')
 
 
 if __name__ == '__main__':
-    # main()
     api = Api(None)
 
     # api.jsonFilePath = jsonFilePath
@@ -39,19 +38,3 @@ if __name__ == '__main__':
     # Set the api self.window so python can push to it
     webview.start()
     # webview.start(debug=True)
-################################################################################################
-
-
-# df, FileSelect, DirMain = cliMenu()
-
-# df = columnFormat(df)
-
-# df, DataMissingidx, DataMissingdf = missingIndex(df)
-
-# df, excelexport = chartPrep(df)
-
-# #####################################################################################
-
-# df = blankFiller(df)
-
-# exportFile(DirMain, df, excelexport, DataMissingdf, FileSelect)

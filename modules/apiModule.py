@@ -10,6 +10,7 @@ from modules.exportFileModule import exportFile
 from modules.blankFillerModule import blankFiller
 from modules.missingIndexModule import missingIndex
 from modules.chartPrepModule import chartPrep
+from modules.exportStandardFileModule import exportStandardFile
 
 
 templateFolderDir, jsonFileName, jsonFilePath, templateFolderStat = createConfigFolder("profiles", "profiles")
@@ -19,7 +20,6 @@ createJson(templateFolderStat, templateFolderDir, jsonFilePath)
 class Api:
     # def __init__(self, window, jsonPath=jsonFile):
     def __init__(self, window, jsonFilePath=jsonFilePath):
-    # def __init__(self, window):
         self.jsonFilePath = jsonFilePath
         self.balanceFilePath = None
         self.window = window
@@ -138,12 +138,12 @@ class Api:
         return self.eventDescriptionInput
     
     def startCalendar(self):
-        # df, FileSelect, DirMain = cliMenu()
-        
-        
+        # mandatory fields:
+        # Subject, start datetime *add note, events will be created as ALL day if time is not given
+
         # df = pd.read_excel(FileSelect, sheet_name="POA Clients", usecols=importcol)
-        # importcol = [self.eventNameInput, self.eventStartDateInput, self.eventStartTimeInput, self.eventEndDateInput, self.eventEndTimeInput, self.eventDescriptionInput]
-        importcol = ["Subject", "Offence Number", "Start Date", "Start Time", "Description"]
+        importcol = [self.eventNameInput, self.eventStartDateInput, self.eventStartTimeInput, self.eventEndDateInput, self.eventEndTimeInput, self.eventDescriptionInput]
+        # importcol = ["Subject", "Offence Number", "Start Date", "Start Time", "Description"]
         print(importcol)
 
         fileSelect = self.excelFilePath
@@ -153,7 +153,6 @@ class Api:
 
         df = pd.read_excel(self.excelFilePath, sheet_name=self.sheetName, usecols=importcol)
 
-
         df = columnFormat(df)
 
         df, DataMissingidx, DataMissingdf = missingIndex(df)
@@ -161,15 +160,11 @@ class Api:
         df, excelexport = chartPrep(df)
 
         df = blankFiller(df)
-
-        exportFile(DirMain, df, excelexport, DataMissingdf, fileSelect)
-
-
-
-
-    # get df
-    # set self values
-    # Return sheets
-    # get row number of headers
-    # return headers
-    # select headers for 
+        if (importcol == ["Subject", "Offence Number", "Start Date", "Start Time", "Description"]):
+            exportFile(DirMain, df, excelexport, DataMissingdf, fileSelect)
+        else:
+            # RETURN values for user to select
+            # export selection
+            exportStandardFile(DirMain, df, excelexport, DataMissingdf, fileSelect)
+            # check what values are given
+            return
