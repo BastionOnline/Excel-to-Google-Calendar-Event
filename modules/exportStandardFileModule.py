@@ -67,7 +67,7 @@ def exportStandardFile(df, filePath):
 
     path, fileName = os.path.split(filePath)
 
-    currentDatetime = datetime.today().strftime('%b %#d, %Y %I:%M %p')
+    currentDatetime = datetime.today().strftime('%b %#d, %Y %I-%M %p')
     # googleFileName = f"Upload to Google - {fileName} {str(datetime.today().date().strftime('%b %#d, %Y'))}.csv"
     # googleFilePath = os.path.join(os.getcwd(), googleFileName)
     googleFileName = f"Upload to Google - {fileName} {currentDatetime}.csv"
