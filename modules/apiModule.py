@@ -4,7 +4,7 @@ import json
 
 from tkinter import filedialog
 from modules.userDefaultsModule import createConfigFolder, setDefault, createJson, updateJsonExcel, loadJson, defaultCheck
-from modules.cliMenuModule import cliMenu
+# from modules.cliMenuModule import cliMenu
 from modules.columnFormatModule import columnFormat
 from modules.exportFileModule import exportFile
 from modules.blankFillerModule import blankFiller
@@ -158,9 +158,12 @@ class Api:
 
         fileSelect = self.excelFilePath
         print(fileSelect)
+        # print(self.headerInput)
         
 
         df = pd.read_excel(self.excelFilePath, sheet_name=self.sheetName, usecols=importcol)
+        # df = pd.read_excel(self.excelFilePath, sheet_name=self.sheetName, usecols=importcol)
+        # df = pd.read_excel(self.excelFilePath, sheet_name=self.sheetName, usecols=importcol, header=self.headerInput)
 
         if (importcol == ["Subject", "Offence Number", "Start Date", "Start Time", "Description"]):
             DirMain = os.getcwd()

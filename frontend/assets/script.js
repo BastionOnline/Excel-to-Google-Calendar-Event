@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     startBtn.addEventListener("click", async () => {
         try {
-            alert("start clicked")
+            // alert("start clicked")
             const start = await window.pywebview.api.startCalendar()
             alert(start)
         } catch {
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
             // alert(sheetNameSelector.value)
             const sheetNameSelected = await window.pywebview.api.selectSheetName(sheetNameSelector.value)
-            alert(sheetNameSelected)
+            // alert(sheetNameSelected)
         } catch {
 
         }
@@ -59,8 +59,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     headerInputSelector.addEventListener("change", async () => {
         // alert("change detected!")
         try{
+            // clear all children options for selector
             headerInputValue = headerInputSelector.value
-            alert(headerInputValue)
+            // alert(headerInputValue)
             const headerJson = await window.pywebview.api.selectHeaderInput(headerInputValue)
             // alert(headerJson)
 
@@ -93,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     eventNameSelector.addEventListener("change", async () => {
         try {
             const eventName = await window.pywebview.api.selectEventNameInput(eventNameSelector.value)
-            alert(eventName)
+            // alert(eventName)
         } catch {
 
         }
@@ -102,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     eventStartDateSelector.addEventListener("change", async () => {
         try {
             const eventStartDate = await window.pywebview.api.selectEventStartDateInput(eventStartDateSelector.value)
-            alert(eventStartDate)
+            // alert(eventStartDate)
         } catch {
 
         }
@@ -111,7 +112,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     eventStartTimeSelector.addEventListener("change", async () => {
         try {
             const eventStartTime = await window.pywebview.api.selectEventStartTimeInput(eventStartTimeSelector.value)
-            alert(eventStartTime)
+            // alert(eventStartTime)
         } catch {
 
         }
@@ -120,7 +121,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     eventEndDateSelector.addEventListener("change", async () => {
         try {
             const eventEndDate = await window.pywebview.api.selectEventEndDateInput(eventEndDateSelector.value)
-            alert(eventEndDate)
+            // alert(eventEndDate)
         } catch {
 
         }
@@ -129,7 +130,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     eventEndTimeSelector.addEventListener("change", async () => {
         try {
             const eventEndTime = await window.pywebview.api.selectEventEndTimeInput(eventEndTimeSelector.value)
-            alert(eventEndTime)
+            // alert(eventEndTime)
         } catch {
 
         }
@@ -138,7 +139,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     eventDescriptionSelector.addEventListener("change", async () => {
         try {
             const eventDescription = await window.pywebview.api.selectEventDescription(eventDescriptionSelector.value)
-            alert(eventDescription)
+            // alert(eventDescription)
         } catch {
             
         }
