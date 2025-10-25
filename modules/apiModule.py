@@ -158,7 +158,7 @@ class Api:
     def selectEventDescription3(self, eventDesriptionSelector3):
         self.eventDescriptionInput3 = eventDesriptionSelector3
         print(self.eventDescriptionInput3)
-        
+
         return self.eventDescriptionInput3
     
     def startCalendar(self):
@@ -177,6 +177,18 @@ class Api:
             getattr(self, "eventDescriptionInput3","")
             ]
         
+        googleProps = {
+            "Subject": self.eventNameInput,
+            "Start Date": self.eventStartDateInput,
+            "Start Time": self.eventStartTimeInput,
+            "End Date": self.eventEndDateInput,
+            "End Time": self.eventEndTimeInput,
+            "Description1": self.eventDescriptionInput1,
+            "Description2": self.eventDescriptionInput2,
+            "Description3": self.eventDescriptionInput3
+        }
+
+
         importcol = [val for val in fields if val != ""]
         print(importcol)
 

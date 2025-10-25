@@ -64,28 +64,20 @@ def exportStandardFile(df, filePath, self):
     def mergeDescriptions(df, self):
         descriptionCols = [self.eventDescriptionInput1, self.eventDescriptionInput2, self.eventDescriptionInput3]
         existingCols = [c for c in descriptionCols if c in df.columns]
+        print(existingCols)
 
-        df["Description"] = df[existingCols].fillna('').agg('\n'.join, axis=1)
+        # fills blanks in
+        # converts to string
+        df["Description"] = df[existingCols].fillna('').astype(str).agg('\n'.join, axis=1)
+        # df["Description"] = df[existingCols].fillna('').agg('\n'.join, axis=1)
 
         df.drop(columns=existingCols, inplace=True)
 
         print(df)
     
-    googleProps = {
-        "Subject": self.eventNameInput,
-        "Start Date": self.eventStartDateInput,
-        "Start Time": self.eventStartTimeInput,
-        "End Date": self.eventEndDateInput,
-        "End Time": self.eventEndTimeInput,
-        "Description1": self.eventDescriptionInput1,
-        "Description2": self.eventDescriptionInput2,
-        "Description3": self.eventDescriptionInput3
-
-    }
-
 
     # sameInputCheck(df, self)
-    # mergeDescriptions(df, self)
+    mergeDescriptions(df, self)
 
 
     # replace user heading with correct heading
@@ -94,10 +86,10 @@ def exportStandardFile(df, filePath, self):
         self.eventStartDateInput: "Start Date",
         self.eventStartTimeInput: "Start Time",
         self.eventEndDateInput: "End Date",
-        self.eventEndTimeInput: "End Time",
-        self.eventDescriptionInput1: "Description1",
-        self.eventDescriptionInput2: "Description2",
-        self.eventDescriptionInput3: "Description3"
+        self.eventEndTimeInput: "End Time"
+        # self.eventDescriptionInput1: "Description1",
+        # self.eventDescriptionInput2: "Description2",
+        # self.eventDescriptionInput3: "Description3"
     }, inplace=True)
     
     print(df)
@@ -126,10 +118,11 @@ def exportStandardFile(df, filePath, self):
     stripEntry(df, "End Time") if "End Time" in df.columns else None
     stripEntry(df, "Description") if "Description" in df.columns else None
 
-    path, fileName = os.path.split(filePath)
+    path, fileNameExt = os.path.split(filePath)
+    fileName, ext = os.path.splitext(fileNameExt)
 
     currentDatetime = datetime.today().strftime('%b %#d, %Y %I-%M %p')
-    googleFileName = f"Upload to Google - {fileName} {currentDatetime}.csv"
+    googleFileName = f"Upload to Google - {fileName} - {currentDatetime}.csv"
     googleFilePath = os.path.join(path, googleFileName)
     
     df.to_csv(googleFilePath, index=False, sep=",")
