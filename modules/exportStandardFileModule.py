@@ -46,17 +46,71 @@ def exportStandardFile(df, filePath, self):
     # today = datetime.now().date()
     # df.loc[df["Start Date"] == ' ', "Start Date"] = today
 
-    def sameInputCheck(df, self):
-        # if start Date & Start Time == Same Column
-        if (self.eventStartDateInput == self.eventStartTimeInput):
-            # duplicate them and title them differently
-            df[self.eventStartDateInput] = df["Start Time"]
-        # same with end date and end time
-        if (self.eventEndDateInput == self.eventEndTimeInput):
-            # duplicate them and title them differently
-            df[self.eventEndDateInput] = df["End Time"]
+    def sameInputCheck(df, selfDate, selfTime, dateCol, timeCol):
+        print(selfDate)
+        print(selfTime)
+        print(dateCol)
+        print(timeCol)
+        # print(self.eventStartDateInput)
+        # print(self.eventStartTimeInput)
+        # print(self.eventEndDateInput)
+        # print(self.eventEndTimeInput)
 
+        # If Start Date and Start Time come from the same column
+        # if self.eventStartDateInput == self.eventStartTimeInput:
+        if selfDate == selfTime:
+            # Duplicate that column into both standardized names
+
+
+            # If "Start Date" column exists, build "Start Time" from it
+            if dateCol in df.columns:
+                # df[dateCol] = df[date]
+                df[timeCol] = df[dateCol]
+                # df.rename(columns={date: dateCol}, inplace=True)
+                # df.drop(columns=date, inplace=True)
+
+            # If "Start Time" column exists, build "Start Date" from it
+            # elif time in df.columns:
+            else:
+                df[dateCol] = df[timeCol]
+                # df.rename(columns={time: "Start Time"}, inplace=True)
+
+                # df[timeCol] = df[time]
+                # df.drop(columns=time, inplace=True)
+
+            # else:
+            #     pass
+            
         print(df)
+
+            # # If "Start Date" column exists, build "Start Time" from it
+            # if self.eventStartDateInput in df.columns and self.eventStartTimeInput not in df.columns:
+            #     df["Start Time"] = df[self.eventStartDateInput]
+
+            # # If "Start Time" column exists, build "Start Date" from it
+            # elif self.eventStartTimeInput in df.columns and self.eventStartDateInput not in df.columns:
+            #     df["Start Date"] = df[self.eventStartTimeInput]
+
+
+
+            # startDateTimeCol = [self.eventStartDateInput, self.eventStartTimeInput]
+            # existingCols = [c for c in startDateTimeCol if c in df.columns]
+            # print(existingCols)
+            
+            # if (existingCols == "Start Date"):
+            #     df["Start Time"] = df[self.eventStartTimeInput]
+            # else:
+            #     df["Start Date"] = df[self.eventStartDateInput]
+            
+            # df.drop(columns=[self.eventStartTimeInput, self.eventStartDateInput], inplace=True)
+
+
+        # same with end date and end time
+        # if (self.eventEndDateInput == self.eventEndTimeInput):
+        #     df["End Date"] = df[self.eventEndDateInput]
+        #     df["End Time"] = df[self.eventEndTimeInput]
+
+        # print(df)
 
 
 
@@ -75,12 +129,10 @@ def exportStandardFile(df, filePath, self):
 
         print(df)
     
-
-    # sameInputCheck(df, self)
-    mergeDescriptions(df, self)
-
-
-    # replace user heading with correct heading
+        # replace user heading with correct heading
+    
+    # add condition in case something is not present
+    # make sure description is optional
     df.rename(columns={
         self.eventNameInput: "Subject",
         self.eventStartDateInput: "Start Date",
@@ -91,14 +143,25 @@ def exportStandardFile(df, filePath, self):
         # self.eventDescriptionInput2: "Description2",
         # self.eventDescriptionInput3: "Description3"
     }, inplace=True)
+
+    print(df)
+
+
+    # date, time, dateCol, timeCol
+    sameInputCheck(df, self.eventStartDateInput, self.eventStartTimeInput, "Start Date", "Start Time")
+    sameInputCheck(df, self.eventEndDateInput, self.eventEndTimeInput, "End Date", "End Time")
+    mergeDescriptions(df, self)
+
+
+
     
     print(df)
 
+    # once correct headings are given, then dump empty
     df = df.dropna(subset=["Subject"])
     df = df.dropna(subset=['Start Date'])
 
-
-
+    print(df)
 
     # format date
     # x = value_if_true if condition else value_if_false
