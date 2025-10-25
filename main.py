@@ -4,21 +4,10 @@ from modules.apiModule import Api
 from modules.pyinstallerBoilerplate import resource_path
 
 ################################################################################################
-#clean empty rows
-#export to csv
-
-
 #how to add colour
-#add description, strip it
 #add reminders in time
-#add database to compare upload
 #add coloured tabs, need openpyxl installed
-#setup directory navs
-
-## FOUND ONLINE: ALWAYS COPY CSV TO TEXT EDITOR TO VERIFY OUTPUT
-# IF COMMAS ARE IN ENTRIES, PUT IT IN QUOTES
 # ADD NOTIFICATIONS FOR EVENTS, SET CALENDAR BEFORE CSV UPLOAD
-
 ################################################################################################
 
 # enable for debugging

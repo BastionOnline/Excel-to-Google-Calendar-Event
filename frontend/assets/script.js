@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const eventEndTimeSelector = document.getElementById("eventEndTimeSelector");
     const eventDescriptionSelector = document.getElementById("eventDescriptionSelector");
     const startBtn = document.getElementById("start");
+    const eventsFoundElement = document.getElementById("eventsFoundElement")
 
     uploadExcelFileBtn.addEventListener("click", async () => {
         try {
@@ -16,10 +17,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             const excelData = await window.pywebview.api.selectExcelFile()
             const excelSheets = JSON.parse(excelData.sheets)
             const excelFilePath = excelData.path
-            // alert(excelData)
-            // alert(excelFilePath)
-            // alert(excelSheets)
-            // alert(excelSheets[0])
+
+            // clear all children options for selector
 
             excelSheets.forEach(sheet => {
                 // alert(sheet)
@@ -38,8 +37,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     startBtn.addEventListener("click", async () => {
         try {
             // alert("start clicked")
-            const start = await window.pywebview.api.startCalendar()
-            alert(start)
+            const eventsFoundResponse = await window.pywebview.api.startCalendar()
+            alert(eventsFoundResponse)
+            eventsFoundElement.innerHTML = `${eventsFoundResponse} found`
         } catch {
 
         }

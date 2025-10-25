@@ -152,18 +152,13 @@ class Api:
             ]
         
         importcol = [val for val in fields if val != ""]
-
-        # importcol = ["Subject", "Offence Number", "Start Date", "Start Time", "Description"]
         print(importcol)
 
         fileSelect = self.excelFilePath
         print(fileSelect)
-        # print(self.headerInput)
-        
 
-        df = pd.read_excel(self.excelFilePath, sheet_name=self.sheetName, usecols=importcol)
-        # df = pd.read_excel(self.excelFilePath, sheet_name=self.sheetName, usecols=importcol)
-        # df = pd.read_excel(self.excelFilePath, sheet_name=self.sheetName, usecols=importcol, header=self.headerInput)
+        df = pd.read_excel(self.excelFilePath, sheet_name=self.sheetName, usecols=importcol, header=self.headerInput-1)
+        print(df)
 
         if (importcol == ["Subject", "Offence Number", "Start Date", "Start Time", "Description"]):
             DirMain = os.getcwd()
@@ -175,7 +170,6 @@ class Api:
         else:
             # RETURN values for user to select
             # export selection
-            # exportStandardFile(DirMain, df, excelexport, DataMissingdf, fileSelect)
-            exportStandardFile(df, fileSelect)
+            eventsFound = exportStandardFile(df, fileSelect, self)
             # check what values are given
-            return
+            return eventsFound

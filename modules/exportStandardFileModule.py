@@ -40,21 +40,58 @@ def formatTime(df, column):
 
 
 
-def exportStandardFile(df, filePath):
+def exportStandardFile(df, filePath, self):
     # drop or replace mandatory rows
     # df.loc[df["Subject"] == ' ', "Subject"] = "No Title"
     # today = datetime.now().date()
     # df.loc[df["Start Date"] == ' ', "Start Date"] = today
+
+
+    # if start Date & Start Time == Same Column
+    if (self.eventStartDateInput == self.eventStartTimeInput):
+        # duplicate them and title them differently
+        df[self.eventStartDateInput] = df["Start Time"]
+    # same with end date and end time
+    if (self.eventEndDateInput == self.eventEndTimeInput):
+        # duplicate them and title them differently
+        df[self.eventEndDateInput] = df["End Time"]
+
+
+
+    # cols = ["Description1", "Description2", "Description3"]
+    descriptionCols = [self.eventDescription1Input, self.eventDescription2Input, self.eventDescription3Input]
+    existingCols = [c for c in descriptionCols if c in df.columns]
+
+    df["Description"] = df[existingCols].fillna('').agg('\n'.join, axis=1)
+
+    df.drop(columns=existingCols, inplace=True)
+
+    googleProps = {
+        "Subject": self.eventNameInput,
+        "Start Date": self.eventStartDateInput,
+        "Start Time": self.eventStartTimeInput,
+        "End Date": self.eventEndDateInput,
+        "End Time": self.eventEndTimeInput,
+        "Description": self.eventDescriptionInput
+    }
+
+
+    # replace user heading with correct heading
+    df.rename(columns={
+        self.eventNameInput: "Subject",
+        self.eventStartDateInput: "Start Date",
+        self.eventStartTimeInput: "Start Time",
+        self.eventEndDateInput: "End Date",
+        self.eventEndTimeInput: "End Time",
+        self.eventDescriptionInput: "Description"
+    }, inplace=True)
     
+
     df = df.dropna(subset=["Subject"])
     df = df.dropna(subset=['Start Date'])
 
 
-    # replace user heading with correct heading
 
-    # if start Date & Start Time == Same Column
-        # duplicate them and title them differently
-        # same with end date and end time
 
     # format date
     # x = value_if_true if condition else value_if_false
