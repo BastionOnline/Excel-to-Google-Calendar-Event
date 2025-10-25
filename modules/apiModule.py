@@ -4,7 +4,7 @@ import json
 
 from tkinter import filedialog
 from modules.userDefaultsModule import createConfigFolder, setDefault, createJson, updateJsonExcel, loadJson, defaultCheck
-# from modules.cliMenuModule import cliMenu
+
 from modules.columnFormatModule import columnFormat
 from modules.exportFileModule import exportFile
 from modules.blankFillerModule import blankFiller
@@ -13,8 +13,10 @@ from modules.chartPrepModule import chartPrep
 from modules.exportStandardFileModule import exportStandardFile
 
 
-templateFolderDir, jsonFileName, jsonFilePath, templateFolderStat = createConfigFolder("profiles", "profiles")
+templateFolderDir, jsonFileName, jsonFilePath, templateFolderStat = createConfigFolder("profiles", "profiles.json")
 createJson(templateFolderStat, templateFolderDir, jsonFilePath)
+
+print(jsonFilePath)
 
 
 class Api:
@@ -28,7 +30,7 @@ class Api:
 
     def loadUserDefaults(self, jsonValue):
         try:
-            if os.path.exists(self.jsonPath):
+            if os.path.exists(self.jsonFilePath):
                 # if there is a json file load it
                 userDefaults = loadJson(self)
 
@@ -70,12 +72,16 @@ class Api:
             return requestedValue
 
 
-    def selectExcelFile(self):
-        # use os.path.normpath to standardize path formats
-        self.excelFilePath = os.path.normpath(filedialog.askopenfilename(
-            title="Select a Balance file",
-            filetypes=[("Excel Files", "*.xls *.xlsx")]
+    def selectExcelFile(self, default=None):
+        if default and os.path.exists(default):
+            self.excelFilePath = os.path.normpath(default)
+        else:
+            # use os.path.normpath to standardize path formats
+            self.excelFilePath = os.path.normpath(filedialog.askopenfilename(
+                title="Select a Balance file",
+                filetypes=[("Excel Files", "*.xls *.xlsx")]
         ))
+            
         print(self.excelFilePath)
 
         # return Excel pages found
@@ -88,6 +94,9 @@ class Api:
         pathAndSheets = [self.excelFilePath, jsonSheetNames]
         print(pathAndSheets)
 
+        if not default:
+            setDefault("Excel File", self.excelFilePath, jsonFilePath)
+
         # return with json to use as array in JS, NOT string
         return {
             "path": self.excelFilePath,
@@ -97,6 +106,9 @@ class Api:
     def selectSheetName(self, sheetName):
         self.sheetName = sheetName
         print(self.sheetName)
+
+        setDefault("Sheet Name", self.sheetName, jsonFilePath)
+
         return self.sheetName
 
 
@@ -108,7 +120,7 @@ class Api:
         df = pd.read_excel(self.excelFilePath, sheet_name=self.sheetName, header=self.headerInput - 1)
         headers = df.columns.tolist()
 
-        # setDefault("Year", self.yearValue, jsonFile)
+        setDefault("Header Row Number", self.headerInput, jsonFilePath)
 
         # return self.headerInput
         return headers
@@ -117,11 +129,15 @@ class Api:
         self.eventNameInput = eventNameSelector
         print(self.eventNameInput)
 
+        setDefault("Subject", self.eventNameInput, jsonFilePath)
+
         return self.eventNameInput
     
     def selectEventStartDateInput(self, eventStartDateSelector):
         self.eventStartDateInput = eventStartDateSelector
         print(self.eventStartDateInput)
+
+        setDefault("Start Date", self.eventStartDateInput, jsonFilePath)
 
         return self.eventStartDateInput
     
@@ -129,11 +145,15 @@ class Api:
         self.eventStartTimeInput = eventStartTimeSelector
         print(self.eventStartTimeInput)
 
+        setDefault("Start Time", self.eventStartTimeInput, jsonFilePath)
+
         return self.eventStartTimeInput
     
     def selectEventEndDateInput(self, eventEndDateSelector):
         self.eventEndDateInput = eventEndDateSelector
         print(self.eventEndDateInput)
+
+        setDefault("End Date", self.eventEndDateInput, jsonFilePath)
 
         return self.eventEndDateInput
 
@@ -141,11 +161,15 @@ class Api:
         self.eventEndTimeInput = eventEndTimeSelector
         print(self.eventEndTimeInput)
 
+        setDefault("End Time", self.eventEndTimeInput, jsonFilePath)
+
         return self.eventEndTimeInput
     
     def selectEventDescription1(self, eventDesriptionSelector1):
         self.eventDescriptionInput1 = eventDesriptionSelector1
         print(eventDesriptionSelector1)
+
+        setDefault("Description1", self.eventDescriptionInput1, jsonFilePath)
 
         return self.eventDescriptionInput1
     
@@ -153,11 +177,15 @@ class Api:
         self.eventDescriptionInput2 = eventDesriptionSelector2
         print(self.eventDescriptionInput2)
 
+        setDefault("Description2", self.eventDescriptionInput2, jsonFilePath)
+
         return self.eventDescriptionInput2
     
     def selectEventDescription3(self, eventDesriptionSelector3):
         self.eventDescriptionInput3 = eventDesriptionSelector3
         print(self.eventDescriptionInput3)
+
+        setDefault("Description3", self.eventDescriptionInput3, jsonFilePath)
 
         return self.eventDescriptionInput3
     

@@ -13,6 +13,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     const startBtn = document.getElementById("start");
     const eventsFoundElement = document.getElementById("eventsFoundElement")
 
+    function loadOptions(list, selector){
+        list.forEach(item => {
+            alert(item)
+            const option = document.createElement("option")
+            option.value = item
+            option.textContent = item
+            selector.appendChild(option)
+        })
+    }
+
+    // function loadOptions(list, selector, nested){
+    //     // Use variable nested if provided, otherwise fallback to `item`
+    //     list.forEach(item => {
+    //         alert(item)
+    //         const option = document.createElement("option")
+    //         option.value = nested || item
+    //         option.textContent = nested || item
+    //         selector.appendChild(option)
+    //     })
+    // }
+
     uploadExcelFileBtn.addEventListener("click", async () => {
         try {
             // alert("click")
@@ -25,13 +46,16 @@ document.addEventListener("DOMContentLoaded", async () => {
             //     selector.innerHTML = ""; // removes all existing options
             // });
 
-            excelSheets.forEach(sheet => {
-                // alert(sheet)
-                const option = document.createElement("option")
-                option.value = sheet
-                option.textContent = sheet
-                sheetNameSelector.appendChild(option)
-            });
+
+            loadOptions(excelSheets, sheetNameSelector)
+
+            // excelSheets.forEach(sheet => {
+            //     // alert(sheet)
+            //     const option = document.createElement("option")
+            //     option.value = sheet
+            //     option.textContent = sheet
+            //     sheetNameSelector.appendChild(option)
+            // });
         }
         catch {
         }
@@ -90,6 +114,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 //     selector.innerHTML = ""; // removes all existing options
                 // });
 
+                // loadOptions(selectors, selector, header)
+                
                 selectors.forEach( selector => {
                     // alert(`selector is ${selector}`)
                     const option = document.createElement("option");
@@ -176,6 +202,49 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
 
 
+    async function check(fileProp, setting) {
+        window.addEventListener('pywebviewready', async () => {
+            try {
+                const filePropStatus = await window.pywebview.api.loadUserDefaults(fileProp);
+                // alert(filePropStatus)
+                if (filePropStatus.bool === true) {
+                    alert(`${fileProp} found`)
+                        if (fileProp === "Excel File") {
+                            alert("Excel File")
+                            
+                            loadOptions()
+                        } else if (fileProp === "Header Row Number") {
+                            // alert(`setting ${fileProp}`)
+                            headerInputSelector.value = filePropStatus.value
+                        }
+                        setting.innerHTML = filePropStatus.value
 
+                    return "filePropStatus"
 
+                } else {
+                    if (fileProp === "Customize Date") {
+                        setting.innerHTML = `❌ ${fileProp} will not be set`
+                        return "filePropStatus"
+                    }
+                    setting.innerHTML = `❌ ${fileProp} needs to be set`
+                    return "filePropStatus"
+                }
+            } catch (err) {
+                alert(`Error loading default: ${err}`);
+                // create needed key, value pair
+            }
+        })
+    }
+
+    
+    // check("Excel File", eventNameSelector)
+    // check("Sheet Name", sheetNameSelector)
+    // check("Header Row Number", headerInputSelector)
+    // check("Start Date", eventStartDateSelector)
+    // check("Start Time", eventStartTimeSelector)
+    // check("End Date", eventEndDateSelector)
+    // check("End Time", eventEndTimeSelector)
+    // check("Description1", eventDescriptionSelector1)
+    // check("Description2", eventDescriptionSelector2) 
+    // check("Description3", eventDescriptionSelector3)
 })

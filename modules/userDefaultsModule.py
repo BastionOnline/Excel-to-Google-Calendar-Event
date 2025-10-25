@@ -37,20 +37,21 @@ def createJson(templateFolderStat, templateFolderDir, jsonFilePath):
     if templateFolderStat == False:
         os.mkdir(templateFolderDir)
 
-    currentYear = datetime.now().year
-    
-
     print(os.path.exists(jsonFilePath))
     if os.path.exists(jsonFilePath) == False:
         data = {
-            "Year": f"{currentYear + 1}",
-            "Customize Date": "true",
-            "Balance": "",
-            "Schedules": "",
-            "Sales": "",
-            "Invoices": "",
-            "Hotel - Schedule": "",
-            "Destination Folder": ""
+            "Profiles": "",
+            "Excel File": "",
+            "Sheet Name": "",
+            "Header Row Number": "",
+            "Subject": "",
+            "Start Date": "",
+            "Start Time": "",
+            "End Date": "",
+            "End Time": "",
+            "Description1": "",
+            "Description2": "",
+            "Description3": ""
         }
 
         with open(jsonFilePath, "w") as f:
@@ -81,7 +82,7 @@ def updateJsonExcel(templateFolderDir, jsonFilePath):
 
 
 def loadJson(self):
-    with open(self.jsonPath, "r") as f:
+    with open(self.jsonFilePath, "r") as f:
         # userDefault is the entire json
         # jsonValue is the key
         userDefaults = json.load(f)
@@ -104,14 +105,14 @@ def defaultCheck(jsonValue, userDefaults):
                     "error": "create key, value pair",
                     "value": path,
                     "bool": False}
-    elif jsonValue == "Year":
+    elif jsonValue == "Header Row Number":
         path = userDefaults.get(jsonValue)
 
         # print(path, type(path))
         try:
-            yearint = int(path)
+            headerRow = int(path)
 
-            if type(yearint) == int:
+            if type(headerRow) == int:
                 return {"location": "defaultCheck, key found, path valid", 
                         "error": "None",
                         "value": path,
