@@ -74,6 +74,7 @@ class Api:
 
     def selectExcelFile(self, default=None):
         if default and os.path.exists(default):
+            print(default)
             self.excelFilePath = os.path.normpath(default)
         else:
             # use os.path.normpath to standardize path formats
@@ -103,11 +104,16 @@ class Api:
             "sheets": jsonSheetNames
         }
     
-    def selectSheetName(self, sheetName):
+    def selectSheetName(self, sheetName, default=None):
+        # if default and os.path.exists(default):
+        #     print(default)
+        #     self.excelFilePath = os.path.normpath(default)
+
         self.sheetName = sheetName
         print(self.sheetName)
 
-        setDefault("Sheet Name", self.sheetName, jsonFilePath)
+        if not default:
+            setDefault("Sheet Name", self.sheetName, jsonFilePath)
 
         return self.sheetName
 

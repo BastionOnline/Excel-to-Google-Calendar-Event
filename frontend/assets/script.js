@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     function loadOptions(list, selector){
         list.forEach(item => {
-            alert(item)
+            // alert(item)
             const option = document.createElement("option")
             option.value = item
             option.textContent = item
@@ -206,17 +206,48 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.addEventListener('pywebviewready', async () => {
             try {
                 const filePropStatus = await window.pywebview.api.loadUserDefaults(fileProp);
-                // alert(filePropStatus)
+                alert(filePropStatus)
                 if (filePropStatus.bool === true) {
-                    alert(`${fileProp} found`)
-                        if (fileProp === "Excel File") {
-                            alert("Excel File")
-                            
-                            loadOptions()
-                        } else if (fileProp === "Header Row Number") {
-                            // alert(`setting ${fileProp}`)
-                            headerInputSelector.value = filePropStatus.value
-                        }
+                    // alert(`${fileProp} found`)
+
+                    
+                    switch (fileProp) {
+                        case "Excel File":
+                            alert("Excel File");
+                            const excelData = await window.pywebview.api.selectExcelFile(filePropStatus.value);
+                            const excelSheets = JSON.parse(excelData.sheets);
+
+                            loadOptions(excelSheets, sheetNameSelector);
+                            break;
+                        case "Sheet Name":
+                            alert("sheet name")
+                            alert(filePropStatus.value)
+
+                            // console.log("Before selectSheetName:", sheetNameSelector.options.length);
+                            await window.pywebview.api.selectSheetName(filePropStatus.value, true);
+                            // console.log("After selectSheetName:", sheetNameSelector.options.length);
+                            // await window.pywebview.api.selectSheetName(filePropStatus.value, true)
+                            // const sheetNameSelected = await window.pywebview.api.selectSheetName(filePropStatus.value, true)
+                            // alert(sheetNameSelected)
+                            break
+                    }
+
+
+                        // if (fileProp === "Excel File") {
+                        //     alert("Excel File")
+                        //     const excelData = await window.pywebview.api.selectExcelFile(filePropStatus.value)
+                        //     const excelSheets = JSON.parse(excelData.sheets)
+
+                        //     loadOptions(excelSheets, sheetNameSelector)
+                        // } else if (fileProp === "Sheet Name") {
+                        //     alert("Sheet Name")
+                        //     const sheetNameSelected = await window.pywebview.api.selectSheetName(filePropStatus.value, true)
+                        // } else if (fileProp === "Header Row Number") {
+                        //     // alert(`setting ${fileProp}`)
+                        //     headerInputSelector.value = filePropStatus.value
+                        // }
+
+
                         setting.innerHTML = filePropStatus.value
 
                     return "filePropStatus"
@@ -237,8 +268,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     
-    // check("Excel File", eventNameSelector)
-    // check("Sheet Name", sheetNameSelector)
+    check("Excel File", eventNameSelector)
+    check("Sheet Name", sheetNameSelector)
     // check("Header Row Number", headerInputSelector)
     // check("Start Date", eventStartDateSelector)
     // check("Start Time", eventStartTimeSelector)

@@ -133,25 +133,31 @@ def defaultCheck(jsonValue, userDefaults):
     if jsonValue in userDefaults or userDefaults[jsonValue]:
         # best way to get a json value
         path = userDefaults.get(jsonValue)
-
-        # tests to see if path returns None and a number
-        if not path or not isinstance(path, str): # if path returns None, it is True, because None is falsy
-            return {"location": "defaultCheck, path blank",
-                    "error":"create key, value pair",
-                    "value": path,
-                    "bool": False}
-        elif (os.path.exists(path) == True):
-            return {"location": "defaultCheck, key found, path valid", 
-                    "error": "None",
-                    "value": path,
-                    "bool": True}
-        else:
-            return {"location": "defaultCheck, key found, path not valid",
-                    "error": "create key, value pair",
-                    "value": path,
-                    "bool": False}
-    else:
-        return {"location": "defaultCheck, key not seen",
-                "error":"create key, value pair",
+        return {"location": "defaultCheck, key found, path valid", 
+                "error": "None",
                 "value": path,
-                "bool": False}
+                "bool": True}
+
+
+
+    #     # tests to see if path returns None and a number
+    #     if not path or not isinstance(path, str): # if path returns None, it is True, because None is falsy
+    #         return {"location": "defaultCheck, path blank",
+    #                 "error":"create key, value pair",
+    #                 "value": path,
+    #                 "bool": False}
+    #     elif (os.path.exists(path) == True):
+    #         return {"location": "defaultCheck, key found, path valid", 
+    #                 "error": "None",
+    #                 "value": path,
+    #                 "bool": True}
+    #     else:
+    #         return {"location": "defaultCheck, key found, path not valid",
+    #                 "error": "create key, value pair",
+    #                 "value": path,
+    #                 "bool": False}
+    # else:
+    #     return {"location": "defaultCheck, key not seen",
+    #             "error":"create key, value pair",
+    #             "value": path,
+    #             "bool": False}
