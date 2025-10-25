@@ -7,7 +7,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const eventStartTimeSelector = document.getElementById("eventStartTimeSelector");
     const eventEndDateSelector = document.getElementById("eventEndDateSelector");
     const eventEndTimeSelector = document.getElementById("eventEndTimeSelector");
-    const eventDescriptionSelector = document.getElementById("eventDescriptionSelector");
+    const eventDescriptionSelector1 = document.getElementById("eventDescriptionSelector1");
+    const eventDescriptionSelector2 = document.getElementById("eventDescriptionSelector2");
+    const eventDescriptionSelector3 = document.getElementById("eventDescriptionSelector3");
     const startBtn = document.getElementById("start");
     const eventsFoundElement = document.getElementById("eventsFoundElement")
 
@@ -19,6 +21,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             const excelFilePath = excelData.path
 
             // clear all children options for selector
+            // sheetNameSelector.forEach(selector => {
+            //     selector.innerHTML = ""; // removes all existing options
+            // });
 
             excelSheets.forEach(sheet => {
                 // alert(sheet)
@@ -59,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     headerInputSelector.addEventListener("change", async () => {
         // alert("change detected!")
         try{
-            // clear all children options for selector
+
             headerInputValue = headerInputSelector.value
             // alert(headerInputValue)
             const headerJson = await window.pywebview.api.selectHeaderInput(headerInputValue)
@@ -75,8 +80,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                     eventStartTimeSelector,
                     eventEndDateSelector,
                     eventEndTimeSelector,
-                    eventDescriptionSelector
+                    eventDescriptionSelector1,
+                    eventDescriptionSelector2,
+                    eventDescriptionSelector3,
                 ];
+
+                // clear all children options for selector
+                // selectors.forEach(selector => {
+                //     selector.innerHTML = ""; // removes all existing options
+                // });
 
                 selectors.forEach( selector => {
                     // alert(`selector is ${selector}`)
@@ -136,13 +148,34 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     })
 
-    eventDescriptionSelector.addEventListener("change", async () => {
+    eventDescriptionSelector1.addEventListener("change", async () => {
         try {
-            const eventDescription = await window.pywebview.api.selectEventDescription(eventDescriptionSelector.value)
+            const eventDescription = await window.pywebview.api.selectEventDescription1(eventDescriptionSelector1.value)
             // alert(eventDescription)
         } catch {
             
         }
     })
+
+    eventDescriptionSelector2.addEventListener("change", async () => {
+        try {
+            const eventDescription = await window.pywebview.api.selectEventDescription2(eventDescriptionSelector2.value)
+            // alert(eventDescription)
+        } catch {
+            
+        }
+    })
+
+    eventDescriptionSelector3.addEventListener("change", async () => {
+        try {
+            const eventDescription = await window.pywebview.api.selectEventDescription3(eventDescriptionSelector3.value)
+            // alert(eventDescription)
+        } catch {
+            
+        }
+    })
+
+
+
 
 })

@@ -115,27 +115,51 @@ class Api:
     
     def selectEventNameInput(self, eventNameSelector):
         self.eventNameInput = eventNameSelector
+        print(self.eventNameInput)
+
         return self.eventNameInput
     
     def selectEventStartDateInput(self, eventStartDateSelector):
         self.eventStartDateInput = eventStartDateSelector
+        print(self.eventStartDateInput)
+
         return self.eventStartDateInput
     
     def selectEventStartTimeInput(self, eventStartTimeSelector):
         self.eventStartTimeInput = eventStartTimeSelector
+        print(self.eventStartTimeInput)
+
         return self.eventStartTimeInput
     
     def selectEventEndDateInput(self, eventEndDateSelector):
         self.eventEndDateInput = eventEndDateSelector
+        print(self.eventEndDateInput)
+
         return self.eventEndDateInput
 
     def selectEventEndTimeInput(self, eventEndTimeSelector):
         self.eventEndTimeInput = eventEndTimeSelector
+        print(self.eventEndTimeInput)
+
         return self.eventEndTimeInput
     
-    def selectEventDescription(self, eventDesriptionSelector):
-        self.eventDescriptionInput = eventDesriptionSelector
-        return self.eventDescriptionInput
+    def selectEventDescription1(self, eventDesriptionSelector1):
+        self.eventDescriptionInput1 = eventDesriptionSelector1
+        print(eventDesriptionSelector1)
+
+        return self.eventDescriptionInput1
+    
+    def selectEventDescription2(self, eventDesriptionSelector2):
+        self.eventDescriptionInput2 = eventDesriptionSelector2
+        print(self.eventDescriptionInput2)
+
+        return self.eventDescriptionInput2
+    
+    def selectEventDescription3(self, eventDesriptionSelector3):
+        self.eventDescriptionInput3 = eventDesriptionSelector3
+        print(self.eventDescriptionInput3)
+        
+        return self.eventDescriptionInput3
     
     def startCalendar(self):
         # mandatory fields:
@@ -148,7 +172,9 @@ class Api:
             getattr(self, "eventStartTimeInput", ""),
             getattr(self, "eventEndDateInput", ""),
             getattr(self, "eventEndTimeInput", ""),
-            getattr(self, "eventDescriptionInput","")
+            getattr(self, "eventDescriptionInput1",""),
+            getattr(self, "eventDescriptionInput2",""),
+            getattr(self, "eventDescriptionInput3","")
             ]
         
         importcol = [val for val in fields if val != ""]

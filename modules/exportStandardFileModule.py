@@ -46,34 +46,46 @@ def exportStandardFile(df, filePath, self):
     # today = datetime.now().date()
     # df.loc[df["Start Date"] == ' ', "Start Date"] = today
 
+    def sameInputCheck(df, self):
+        # if start Date & Start Time == Same Column
+        if (self.eventStartDateInput == self.eventStartTimeInput):
+            # duplicate them and title them differently
+            df[self.eventStartDateInput] = df["Start Time"]
+        # same with end date and end time
+        if (self.eventEndDateInput == self.eventEndTimeInput):
+            # duplicate them and title them differently
+            df[self.eventEndDateInput] = df["End Time"]
 
-    # if start Date & Start Time == Same Column
-    if (self.eventStartDateInput == self.eventStartTimeInput):
-        # duplicate them and title them differently
-        df[self.eventStartDateInput] = df["Start Time"]
-    # same with end date and end time
-    if (self.eventEndDateInput == self.eventEndTimeInput):
-        # duplicate them and title them differently
-        df[self.eventEndDateInput] = df["End Time"]
+        print(df)
 
 
 
     # cols = ["Description1", "Description2", "Description3"]
-    descriptionCols = [self.eventDescription1Input, self.eventDescription2Input, self.eventDescription3Input]
-    existingCols = [c for c in descriptionCols if c in df.columns]
+    def mergeDescriptions(df, self):
+        descriptionCols = [self.eventDescriptionInput1, self.eventDescriptionInput2, self.eventDescriptionInput3]
+        existingCols = [c for c in descriptionCols if c in df.columns]
 
-    df["Description"] = df[existingCols].fillna('').agg('\n'.join, axis=1)
+        df["Description"] = df[existingCols].fillna('').agg('\n'.join, axis=1)
 
-    df.drop(columns=existingCols, inplace=True)
+        df.drop(columns=existingCols, inplace=True)
 
+        print(df)
+    
     googleProps = {
         "Subject": self.eventNameInput,
         "Start Date": self.eventStartDateInput,
         "Start Time": self.eventStartTimeInput,
         "End Date": self.eventEndDateInput,
         "End Time": self.eventEndTimeInput,
-        "Description": self.eventDescriptionInput
+        "Description1": self.eventDescriptionInput1,
+        "Description2": self.eventDescriptionInput2,
+        "Description3": self.eventDescriptionInput3
+
     }
+
+
+    # sameInputCheck(df, self)
+    # mergeDescriptions(df, self)
 
 
     # replace user heading with correct heading
@@ -83,9 +95,12 @@ def exportStandardFile(df, filePath, self):
         self.eventStartTimeInput: "Start Time",
         self.eventEndDateInput: "End Date",
         self.eventEndTimeInput: "End Time",
-        self.eventDescriptionInput: "Description"
+        self.eventDescriptionInput1: "Description1",
+        self.eventDescriptionInput2: "Description2",
+        self.eventDescriptionInput3: "Description3"
     }, inplace=True)
     
+    print(df)
 
     df = df.dropna(subset=["Subject"])
     df = df.dropna(subset=['Start Date'])
